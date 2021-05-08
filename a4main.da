@@ -139,20 +139,22 @@ class Pong(process):
         output("Pinged.")
         #send(('Pong',), to=ping)
 
-def main():
-    pong = new(Pong, args=(), at='PongNode')
-    ping = new(Ping, args=(pong,))
-    start(pong)
-    start(ping)
-
 #def main():
-#  n = 3                            # size n for n-by-n board
-#  board = BoardAI(n)
-#  board.show(1)
-#  num_players = 2
-#  
-#  p1 = new(Player, args=(board,1,p2))
-#  p2 = new(Player, args=(board,2,p1), at='Player2')
+#    pong = new(Pong, args=(), at='PongNode')
+#    ping = new(Ping, args=(pong,))
+#    start(pong)
+#    start(ping)
+
+def main():
+  n = 3                            # size n for n-by-n board
+  board = BoardAI(n)
+  board.show(1)
+  num_players = 2
+  
+  p1 = new(Player, args=(board,1,p2,),at='Player2')
+  p2 = new(Player, args=(board,2,p1,))
+  start(p1)
+  start(p2)
   
 
 
