@@ -127,19 +127,19 @@ class Player (process):
     TODO('take action seeing a move by player id2')
     output(pos)
     
-class Player2 (process):
-  def setup(board, id):        # take board size, own id, other processes
-    board.show(id)
+#class Player2 (process):
+#  def setup(board, id):        # take board size, own id, other processes
+#    board.show(id)
 
-  def run():
-    #TODO('player 1 should start; play until finished')
-    
+#  def run():
+#    #TODO('player 1 should start; play until finished')
+#    
 
-  def receive(msg= (pos, id1)):    # receive next position from player id1
-    TODO('take action seeing a move by player id2')
-    print("pos",pos,"id",id)
-    pos2=board.move(id)
-    send((pos2,id,),to=p1)
+#  def receive(msg= (pos, id1)):    # receive next position from player id1
+#    TODO('take action seeing a move by player id2')
+#    print("pos",pos,"id",id)
+#    pos2=board.move(id)
+#    send((pos2,id,),to=p1)
     
 class Ping(process):
     def setup(pong): pass
