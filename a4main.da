@@ -118,11 +118,14 @@ class Player (process):
 
   def run():
     #TODO('player 1 should start; play until finished')
+    pos=board.move(id)
+    send((pos,id,),to=ps)
     print("here")
     return
 
   def receive(msg= (pos, id2)):    # receive next position from player id2
     TODO('take action seeing a move by player id2')
+    output(pos)
 
     
 class Ping(process):
@@ -151,10 +154,10 @@ def main():
   board.show(1)
   num_players = 2
   
-  p1 = new(Player, args=(board,1,),at='Player2')
-  p2 = new(Player, args=(board,2,p1,))
-  start(p1)
+  p2 = new(Player, args=(board,1,),at='Player1')
+  p1 = new(Player, args=(board,2,p2,))
   start(p2)
+  start(p1)
   
 
 
