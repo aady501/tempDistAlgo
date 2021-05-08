@@ -126,21 +126,34 @@ class Player (process):
   def receive(msg= (pos, id2)):    # receive next position from player id2
     TODO('take action seeing a move by player id2')
     output(pos)
+    
+class Player2 (process):
+  def setup(board, id):        # take board size, own id, other processes
+    board.show(id)
 
+  def run():
+    #TODO('player 1 should start; play until finished')
+    
+
+  def receive(msg= (pos, id1)):    # receive next position from player id1
+    TODO('take action seeing a move by player id2')
+    print("pos",pos,"id",id)
+    pos2=board.move(id)
+    send((pos2,id,),to=p1)
     
 class Ping(process):
     def setup(pong): pass
     def run():
-        #send(('Ping',), to=pong)
-        #await(received(('Pong',)))
+        send(('Ping',), to=pong)
+        await(received(('Pong',)))
         output("Ponged.")
 
 class Pong(process):
     def setup(): pass
     def run():
-        #await(some(received(('Ping',), from_=ping)))
+        await(some(received(('Ping',), from_=ping)))
         output("Pinged.")
-        #send(('Pong',), to=ping)
+        send(('Pong',), to=ping)
 
 #def main():
 #    pong = new(Pong, args=(), at='PongNode')
@@ -154,8 +167,10 @@ def main():
   board.show(1)
   num_players = 2
   
-  p2 = new(Player, args=(board,1,),at='Player1')
-  p1 = new(Player, args=(board,2,p2,))
+  p2 = new(Player, at='Player2')
+  p1 = new(Player)
+  setup(p1,(board,1,p2,))
+  setup(p2,(board,2,p1,))
   start(p2)
   start(p1)
   
