@@ -151,7 +151,7 @@ def main():
   board.show(1)
   num_players = 2
   
-  p1 = new(Player, args=(board,1,p2,),at='Player2')
+  p1 = new(Player, args=(board,1,),at='Player2')
   p2 = new(Player, args=(board,2,p1,))
   start(p1)
   start(p2)
