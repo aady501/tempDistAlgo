@@ -120,7 +120,7 @@ class Player (process):
     #TODO('player 1 should start; play until finished')
     pos=board.move(id)
     send((pos,id,),to=ps)
-    print("here")
+    board.show()
     return
 
   def receive(msg= (pos, id2)):    # receive next position from player id2
