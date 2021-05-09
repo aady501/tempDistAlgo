@@ -118,24 +118,28 @@ class Player (process):
 
   def run():
     #TODO('player 1 should start; play until finished')
-    pos=board.move(id)
+    #pos=board.move(id)
     send((pos,id,),to=ps)
-    board.show(id)
-    #await(some(received(("okay",))
+    #board.show(id)
+    await(some(received(("okay",))
+    output("Player2 received")
     #return
 
-  def receive(msg= ("okay",)):    # receive next position from player id2
-    #TODO('take action seeing a move by player id2')
-    print("in receive")
-    output(pos)
+#  def receive(msg= ("okay",)):    # receive next position from player id2
+#    #TODO('take action seeing a move by player id2')
+#    print("in receive")
+#    output(pos)
     
-#class Player2 (process):
-#  def setup(board, id):        # take board size, own id, other processes
-#    board.show(id)
+class Player2 (process):
+  def setup(board, id):        # take board size, own id, other processes
+    board.show(id)
 
-#  def run():
-#    #TODO('player 1 should start; play until finished')
-#    
+  def run():
+    #TODO('player 1 should start; play until finished')
+    await(some(received((pos,id,),from_=p2)))
+    output("Player 1 received")
+    send(("okay"),to=p2)
+    
 
 #  def receive(msg= (pos, id1)):    # receive next position from player id1
 #    TODO('take action seeing a move by player id2')
@@ -169,12 +173,12 @@ def main():
   #board.show(1)
   num_players = 2
   
-  p2 = new(Player, at='Player2')
+  p2 = new(Player2)
   p1 = new(Player)
   print("Hello")
   setup(p1,(board,1,p2))
   print("After 1st setup")
-  setup(p2,(board,2,p1))
+  setup(p2,(board,2))
   print("after setup")
   start(p2)
   start(p1)
