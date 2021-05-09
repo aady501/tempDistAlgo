@@ -124,7 +124,7 @@ class Player (process):
     await(some(received(("okay",))
     #return
 
-  def receive(msg= ("okay")):    # receive next position from player id2
+  def receive(msg= ("okay",)):    # receive next position from player id2
     #TODO('take action seeing a move by player id2')
     print("in receive")
     output(pos)
