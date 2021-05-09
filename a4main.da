@@ -121,7 +121,7 @@ class Player (process):
     pos=board.move(id)
     send((pos,id,),to=ps)
     board.show(id)
-    await(some(received((pos,id,))
+    await(some(received((pos,id2,))
     #return
 
   def receive(msg= (pos, id2)):    # receive next position from player id2
