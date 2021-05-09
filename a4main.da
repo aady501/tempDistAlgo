@@ -122,7 +122,7 @@ class Player (process):
     send((pos,id,),to=ps)
     #board.show(id)
     await(some(received(("okay",))
-    print("Player2 received")
+    #print("Player2 received")
     #return
 
 #  def receive(msg= ("okay",)):    # receive next position from player id2
@@ -137,7 +137,7 @@ class Player2 (process):
   def run():
     #TODO('player 1 should start; play until finished')
     await(some(received((pos,id,),from_=p2)))
-    print("Player 1 received")
+    #print("Player 1 received")
     send(("okay"),to=p2)
     
 
