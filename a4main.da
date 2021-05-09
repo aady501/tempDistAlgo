@@ -121,10 +121,10 @@ class Player (process):
     pos=board.move(id)
     send((pos,id,),to=ps)
     board.show(id)
-    await(some(received((pos,id2,))
+    await(some(received((pos,id,))
     #return
 
-  def receive(msg= (pos, id2)):    # receive next position from player id2
+  def receive(msg= (pos, id)):    # receive next position from player id2
     TODO('take action seeing a move by player id2')
     print("in receive")
     output(pos)
