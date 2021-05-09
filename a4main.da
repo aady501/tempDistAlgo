@@ -8,7 +8,7 @@ class BoardAI:
     """create an empty n-by-n board, with indices starting at 1
     """
     self.board = {(i,j):0 for i in range(1,n+1) for j in range(1,n+1)}
-
+    self.boardSize=n
   def move(self, id):
     """find next position for player id, update board, and return the position
     """
@@ -34,6 +34,7 @@ class BoardAI:
       return False
     else:
       return True
+
   def win(self, id):
     """print result if player id has won, and return whether id has won
     """
@@ -58,21 +59,25 @@ class BoardAI:
             flag=1
             break
         if flag==0:
-          print('==== player', id, 'won: column', j); return True
+          print('==== player', id, 'won: column', i); return True
     if self.board[(1,1)]==id:
-      x=id
+      flag=0
+      #print("found",id,"at 1,1")
       for i in range(1,n+1):
-        if self.board[(i,i)]!=x:
-            flag=1
-            break
+        if self.board[(i,i)]!=id:
+          #print("flag set found",id,"at",i,i)  
+          flag=1
+      #print("flag",flag)
       if flag==0:
         print('==== player', id, 'won: left diagonal'); return True
-    if self.board[(1,n+1)]==id:
-      x=id
+    if self.board[(1,n)]==id:
+      flag=0
+      #print("found",id,"at 1,",n)
       for i in range(1,n+1):
-        if self.board[(i,n+1-i)]!=x:
-            flag=1
-            break
+        if self.board[(i,n+1-i)]!=id:
+          #print("flag set. found",id,"at",i,n+1-i)
+          flag=1
+      #print("flag",flag)
       if flag==0:
         print('==== player', id, 'won: right diagonal'); return True
 
@@ -90,13 +95,13 @@ class BoardAI:
     """return if some player has won, or if the board is full so it is a draw
     """
     if(self.win(1)):
-      print("Player 1 Won")
+      #print("Player 1 Won")
       return 1
     elif(self.win(2)):
-      print("Player 2 Won")
+      #print("Player 2 Won")
       return 2
-    elif(self.full):
-      print("Draw")
+    elif(self.full()):
+      #print("Draw")
       return 0
     else:
       return -1
@@ -116,9 +121,25 @@ class Player (process):
 
   def run():
     #TODO('player 1 should start; play until finished')
+    if(id==1):
+      #output("First Move")
+      pos1 = board.move(1)
+      board.show(id)
+      send((pos1,1,),to = ps)
+    #output(board.finished())
+    await(board.finished()!=-1)
 
-  def receive(msg= (pos, id2)):    # receive next position from player id2
+  def receive(msg= (pos,id2)):    # receive next position from player id2
     #TODO('take action seeing a move by player id2')
+    #output("we received ",pos,id2)
+    board.update(pos,id2)
+    #output("Next Move by",id)
+    if(board.finished()==-1):
+      pos2 = board.move(id)
+      #output("Next board Show by id",id)
+      board.show(id)
+      #output("sending pos and id to process",ps)
+      send((pos2,id,), to=ps)
 
 def main():
   n = 3                            # size n for n-by-n board
@@ -126,6 +147,11 @@ def main():
 
   num_players = 2
   #TODO('create, setup, and start both players, with ids 1 and 2, respetively')
-
+  p1 = new(Player)
+  p2 = new(Player)
+  setup(p1,(board,1,p2))
+  setup(p2,(board,2,p1))
+  start(p1)
+  start(p2)
   
   
