@@ -164,15 +164,19 @@ class Pong(process):
 def main():
   n = 3                            # size n for n-by-n board
   board = BoardAI(n)
-  board.show(1)
+  #board.show(1)
   num_players = 2
   
   p2 = new(Player, at='Player2')
   p1 = new(Player)
-  setup(p1,(board,1,p2,))
-  setup(p2,(board,2,p1,))
+  print("Hello")
+  setup(p1,(board,1,p2))
+  print("After 1st setup")
+  setup(p2,(board,2,p1))
+  print("after setup")
   start(p2)
   start(p1)
+  print("End")
   
 
 
