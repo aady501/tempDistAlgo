@@ -130,15 +130,15 @@ class Player (process):
 #    print("in receive")
 #    output(pos)
     
-class Player2 (process):
-  def setup(board, id):        # take board size, own id, other processes
-    board.show(id)
+#class Player2 (process):
+#  def setup(board, id):        # take board size, own id, other processes
+#    board.show(id)
 
-  def run():
-    #TODO('player 1 should start; play until finished')
-    await(some(received(("okay",),from_=p2)))
-    #print("Player 1 received")
-    send(("okay"),to=p2)
+#  def run():
+#    #TODO('player 1 should start; play until finished')
+#    await(some(received(("okay",),from_=p2)))
+#    #print("Player 1 received")
+#    send(("okay"),to=p2)
     
 
 #  def receive(msg= (pos, id1)):    # receive next position from player id1
