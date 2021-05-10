@@ -1,6 +1,6 @@
 # place holder for the parts you are to do; may delete after you finish all
 def TODO(hint = ''): return False
-
+import time
 import random
 
 class BoardAI:
@@ -133,26 +133,55 @@ class Player (process):
 
   def run():
     #TODO('player 1 should start; play until finished')
+    i=10
     if(id==1):
-      #output("First Move")
-      pos1 = board.move(1)
-      board.show(id)
-      send((pos1,1,),to = ps)
+      pos1=board.move(1)
+      board.show(1)
+      send((pos1,id,),to=ps)
+      #flag=1
+    while(True):
+      await(some(received((pos,id2),from_=ps)))
+    #while(True):  
+      #output("Ping from",x)
+      board.update(pos,id2)
+      if(board.finished()==-1):
+        pos2 = board.move(id)
+        board.show(id)
+        send((pos2,id),to=ps)
+        #await(some(received((y), clk=rclk), has=(rclk > clk)))
+        #output(y) 
+      else:
+        #send(("Ping",),to=ps)
+        break
     #output(board.finished())
-    await(board.finished()!=-1)
+    #await(board.finished()!=-1)
+#class Player2(process):
+#  def setup(board,id,ps):
+#    board.show(id)
+#  def run():
+#    while(True):
+#      await(some(received((pos,id2),from_=ps)))
+#      board.update(pos,id2)
+#      if(board.finished()==-1):
+#        pos1=board.move(id)
+#        board.show(id)
+#        send((pos1,id),to=ps)
+#      else:
+#        break
+    
       
 
-  def receive(msg= (pos,id2)):    # receive next position from player id2
+  #def receive(msg= (pos,id2)):    # receive next position from player id2
     #TODO('take action seeing a move by player id2')
     #output("we received ",pos,id2)
-    board.update(pos,id2)
+    #board.update(pos,id2)
     #output("Next Move by",id)
-    if(board.finished()==-1):
-      pos2 = board.move(id)
+    #if(board.finished()==-1):
+      #pos2 = board.move(id)
       #output("Next board Show by id",id)
-      board.show(id)
+      #board.show(id)
       #output("sending pos and id to process",ps)
-      send((pos2,id,), to=ps)
+      #send((pos2,id,), to=ps)
 
 def main():
   n = 3                            # size n for n-by-n board
